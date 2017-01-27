@@ -14,11 +14,17 @@ di.container.get('config').update('cache', 'memory');
 app.get('/', (req, res, next) => {
 	const requestCounter = di.container.get('requestCounter');
 	requestCounter.registerIncomingRequest(req.url, req.param, Date.now());
-	console.log(next);
 	next();
 });
 
 app.use('/', express.static(path.join(__dirname, process.env.PUBLIC_DIR)))
+
+
+app.get('/stats', async (req, res) => {
+	const requestCounter = di.container.get('requestCounter');
+	const stats = await requestCounter.getStatistic();
+	res.send(stats);
+});
 
 app.listen(8080, function () {
     console.log('Server listening on port 8080!')
