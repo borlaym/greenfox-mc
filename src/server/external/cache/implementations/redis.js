@@ -29,6 +29,15 @@ function RedisCache() {
     await redis.flushall();
   }
 
+	async function set(key, value) {
+		validate.string(
+      key,
+      new VError(`[Cache] You have to use string as a key, got "${key}" (${typeof key})`)
+    );
+    const result = await redis.set(key, value);
+    return Promise.resolve(parseInt(result));
+  }
+
   return Object.freeze({
     get: get,
     increment,

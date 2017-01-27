@@ -13,4 +13,15 @@ export default function () {
     const result = await cache.get(key);
     expect(result).to.eql(parseInt(value));
   });
+
+	this.When('I set key "$key" with value "$value"', async function (key, value) {
+    const cache = this.container.get('cache');
+    await cache.set(key, value);
+  });
+
+  this.Then('I get string value "$value" for key "$key"', async function (value, key) {
+    const cache = this.container.get('cache');
+    const result = await cache.get(key);
+    expect(result).to.eql(value);
+  });
 }

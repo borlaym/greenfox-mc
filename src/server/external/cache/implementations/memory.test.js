@@ -21,4 +21,9 @@ describe('Memory cache', () => {
     expect(increment).to.throw(/You have to use/);
   });
 
+	it('should be able to set any value', () => {
+    cache.set('foo', 'bar');
+    expect(cache.get('foo')).to.eql('bar');
+  });
+
 });
