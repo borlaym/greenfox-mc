@@ -1,22 +1,11 @@
-var { graphql, buildSchema } = require('graphql');
+var { buildSchema } = require('graphql');
 
 function TestSchema() {
-	const schema = buildSchema(`
+	return buildSchema(`
 	  type Query {
 	    hello: String
 	  }
 	`);
-
-	function query(query) {
-		return graphql(schema, query, {
-			hello: 'world',
-			foo: 3
-		});
-	}
-
-	return Object.freeze({
-		query
-	});
 
 }
 

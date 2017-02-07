@@ -1,8 +1,23 @@
+import { graphql } from 'graphql';
+
+function Schema(schema) {
+	function query(query) {
+		return graphql(schema, query, {
+			hello: 'world',
+			foo: 3
+		});
+	}
+
+	return Object.freeze({
+		query
+	});
+}
 
 function Store(container) {
 
   function getSchema(name) {
-    return container.get(name);
+    const schema = container.get(name);
+		return Schema(schema);
   }
 
   return Object.freeze({
