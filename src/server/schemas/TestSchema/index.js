@@ -1,11 +1,24 @@
-var { buildSchema } = require('graphql');
+import {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString
+} from 'graphql';
 
 function TestSchema() {
-	return buildSchema(`
-	  type Query {
-	    hello: String
-	  }
-	`);
+
+	return new GraphQLSchema({
+		query: new GraphQLObjectType({
+			name: 'RootQueryType',
+			fields: {
+				hello: {
+					type: GraphQLString,
+					resolve() {
+						return 'world';
+					}
+				}
+			}
+		})
+	});
 
 }
 

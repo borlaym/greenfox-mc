@@ -2,10 +2,7 @@ import { graphql } from 'graphql';
 
 function Schema(schema) {
 	function query(query) {
-		return graphql(schema, query, {
-			hello: 'world',
-			foo: 3
-		});
+		return graphql(schema, query);
 	}
 
 	return Object.freeze({
