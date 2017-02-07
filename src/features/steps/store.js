@@ -10,9 +10,11 @@ export default function () {
 
   this.Then('I can run a query on it', async function () {
 		const expectedResult = {
-			hello: 'world'
+			data: {
+				hello: 'world'
+			}
 		};
-		const result = await this.context.TestSchema.query(` { hello } `);
+		const result = await this.context.TestSchema.query('{ hello }');
     expect(result).to.eql(expectedResult);
   });
 }

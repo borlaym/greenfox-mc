@@ -3,5 +3,5 @@ Feature: Store
 	a model schema and query on it
 
 Scenario: Get a schema
-  When I ask for schema definition "Test"
+  When I ask for schema definition "TestSchema"
   Then I can run a query on it
