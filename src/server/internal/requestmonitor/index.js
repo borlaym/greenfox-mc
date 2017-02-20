@@ -1,13 +1,35 @@
+import { graphql } from 'graphql';
 
-function RequestMonitor(cache) {
+function RequestMonitor(cache, Request) {
 
   async function registerIncomingRequest(url, params, time) {
-    await cache.increment('totalIncomingRequests', 1);
+		var schema = await Request;
+		console.log(graphql);
+		var valami = await graphql(schema, `
+			mutation {
+				add(url: "${url}", time: "${time}") {
+					url,
+					time
+				}
+			}
+		`)
+		console.log(valami);
+		// await cache.increment('totalIncomingRequests', 1);
   }
 
   async function getStatistics() {
+		var schema = await Request;
+		var valami = await graphql(schema, `
+			query {
+				requests {
+					url,
+					time
+				}
+			}
+		`)
+		console.log(valami);
     return {
-      totalIncomingRequests: await cache.get('totalIncomingRequests')
+      totalIncomingRequests: valami.data.requests.length
     }
   }
 
@@ -17,6 +39,6 @@ function RequestMonitor(cache) {
   });
 }
 
-RequestMonitor.deps = ['cache'];
+RequestMonitor.deps = ['cache', 'Request'];
 
 module.exports = RequestMonitor;
