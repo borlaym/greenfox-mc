@@ -20,6 +20,7 @@ function World() {
 function setupConfig(config) {
   //config.update('service', 'memory');
   config.update('cache', 'memory');
+  config.update('mongo', 'memory');
 }
 
 function extendContainer() {
