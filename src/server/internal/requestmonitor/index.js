@@ -1,8 +1,18 @@
+import { graphql } from 'graphql';
 
-function RequestMonitor(cache) {
+function RequestMonitor(cache, Request) {
 
   async function registerIncomingRequest(url, params, time) {
-    await cache.increment('totalIncomingRequests', 1);
+		var schema = await Request;
+		await graphql(schema, `
+			mutation {
+				add(url: "${url}", time: "${time}") {
+					url,
+					time
+				}
+			}
+		`)
+		await cache.increment('totalIncomingRequests', 1);
   }
 
   async function getStatistics() {
@@ -17,6 +27,6 @@ function RequestMonitor(cache) {
   });
 }
 
-RequestMonitor.deps = ['cache'];
+RequestMonitor.deps = ['cache', 'Request'];
 
 module.exports = RequestMonitor;

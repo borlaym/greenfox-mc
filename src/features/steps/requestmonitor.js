@@ -2,10 +2,16 @@
 
 import { expect } from 'chai';
 
+const sampleRequest = {
+	url: '/randomurl',
+	params: {},
+	time: '3123121'
+};
+
 export default function () {
   this.When('the system get an Incoming request', async function () {
     const monitor = this.container.get('requestmonitor');
-    await monitor.registerIncomingRequest();
+    await monitor.registerIncomingRequest(sampleRequest.url, sampleRequest.params, sampleRequest.time);
   });
 
   this.Then('I see "$value" for "$key" in the statistics', async function(value, key) {
