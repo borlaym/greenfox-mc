@@ -23,6 +23,12 @@ app.use('/stats', async (req, res, next) => {
   res.send(result);
 });
 
+app.use('/requests', async (req, res, next) => {
+  const monitor = container.get('requestmonitor');
+  const result = await monitor.getRequests()
+  res.send(result);
+});
+
 app.use('/', express.static(path.join(__dirname, process.env.PUBLIC_DIR)))
 
 app.listen(8080, function () {
