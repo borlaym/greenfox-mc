@@ -21,9 +21,23 @@ function RequestMonitor(cache, Request) {
     }
   }
 
+	async function getRequests() {
+		var schema = await Request;
+		var results = await graphql(schema, `
+			query {
+				requests {
+					url,
+					time
+				}
+			}
+		`);
+		return results.data.requests;
+	}
+
   return Object.freeze({
     registerIncomingRequest,
-    getStatistics
+    getStatistics,
+		getRequests
   });
 }
 
