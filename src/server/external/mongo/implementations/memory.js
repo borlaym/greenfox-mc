@@ -4,8 +4,7 @@ const mockgoose = require('mockgoose');
 const mongoose = require('mongoose');
 
 function MongoMemoryProvider() {
-	mockgoose(mongoose);
-	return mongoose;
+	return mockgoose(mongoose).then(() => mongoose);
 }
 
 module.exports = MongoMemoryProvider;
