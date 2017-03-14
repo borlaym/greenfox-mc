@@ -12,8 +12,10 @@ app.use(bodyParser.json());
 
 app.use(async (req, res, next) => {
     const monitor = container.get('requestmonitor');
+		const intrusionMonitor = container.get('intrusionmonitor');
     const fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     await monitor.registerIncomingRequest(fullUrl);
+		intrusionMonitor.registerIncomingRequest(fullUrl);
     next();
   }
 );
